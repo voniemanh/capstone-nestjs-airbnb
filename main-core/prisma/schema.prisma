@@ -1,0 +1,135 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/modules-system/prisma/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Bookings {
+  id          Int           @id @default(autoincrement())
+  roomId      Int
+  userId      Int
+  checkIn     DateTime?     @db.DateTime(0)
+  checkOut    DateTime?     @db.DateTime(0)
+  guestCount  Int?
+  createdAt   DateTime      @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime      @default(now()) @db.Timestamp(0)
+  status      String        @default("CONFIRMED") @db.VarChar(20)
+  BookingLogs BookingLogs[]
+  Rooms       Rooms         @relation(fields: [roomId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bookings_rooms")
+  Users       Users         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bookings_users")
+
+  @@index([roomId], map: "idx_bookings_roomId")
+  @@index([userId], map: "idx_bookings_userId")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Comments {
+  id          Int       @id @default(autoincrement())
+  roomId      Int
+  userId      Int
+  commentDate DateTime? @db.DateTime(0)
+  content     String?   @db.VarChar(255)
+  rating      Int?      @db.TinyInt
+  isDeleted   Boolean   @default(false)
+  createdAt   DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime  @default(now()) @db.Timestamp(0)
+  Rooms       Rooms     @relation(fields: [roomId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_rooms")
+  Users       Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_users")
+
+  @@index([userId], map: "fk_comments_users")
+  @@index([roomId], map: "idx_comments_roomId")
+}
+
+model Locations {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  city      String?  @db.VarChar(255)
+  country   String?  @db.VarChar(255)
+  imageUrl  String?  @db.VarChar(255)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @db.Timestamp(0)
+  Rooms     Rooms[]
+}
+
+model Rooms {
+  id                Int          @id @default(autoincrement())
+  name              String       @db.VarChar(255)
+  guestCount        Int?
+  bedroomCount      Int?
+  bedCount          Int?
+  bathroomCount     Int?
+  description       String?      @db.Text
+  price             Int?
+  hasWashingMachine Boolean?     @default(false)
+  hasIron           Boolean?     @default(false)
+  hasTV             Boolean?     @default(false)
+  hasAC             Boolean?     @default(false)
+  hasWifi           Boolean?     @default(false)
+  hasKitchen        Boolean?     @default(false)
+  hasParking        Boolean?     @default(false)
+  hasPool           Boolean?     @default(false)
+  hasHeater         Boolean?     @default(false)
+  locationId        Int
+  userId            Int
+  imageUrl          String?      @db.VarChar(255)
+  isDeleted         Boolean      @default(false)
+  createdAt         DateTime     @default(now()) @db.Timestamp(0)
+  updatedAt         DateTime     @default(now()) @db.Timestamp(0)
+  Bookings          Bookings[]
+  Comments          Comments[]
+  Locations         Locations    @relation(fields: [locationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rooms_locations")
+  Users             Users        @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rooms_users")
+  SavedRooms        SavedRooms[]
+
+  @@index([locationId], map: "idx_rooms_locationId")
+  @@index([userId], map: "idx_rooms_userId")
+}
+
+model SavedRooms {
+  userId    Int
+  roomId    Int
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @db.Timestamp(0)
+  Rooms     Rooms    @relation(fields: [roomId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_savedrooms_rooms")
+  Users     Users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_savedrooms_users")
+
+  @@id([userId, roomId])
+  @@index([roomId], map: "idx_savedrooms_roomId")
+}
+
+model Users {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(255)
+  email      String       @unique(map: "email") @db.VarChar(255)
+  password   String?      @db.VarChar(255)
+  phone      String?      @db.VarChar(20)
+  birthday   DateTime?    @db.Date
+  gender     String?      @db.VarChar(20)
+  role       String?      @default("USER") @db.VarChar(20)
+  avatar     String?      @db.VarChar(255)
+  isDeleted  Boolean      @default(false)
+  createdAt  DateTime     @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime     @default(now()) @db.Timestamp(0)
+  googleId   String?      @unique(map: "googleId") @db.VarChar(255)
+  Bookings   Bookings[]
+  Comments   Comments[]
+  Rooms      Rooms[]
+  SavedRooms SavedRooms[]
+}
+
+model BookingLogs {
+  id          Int      @id @default(autoincrement())
+  bookingId   Int
+  action      String   @db.VarChar(50)
+  performedBy Int
+  performedAt DateTime @default(now()) @db.DateTime(0)
+  Bookings    Bookings @relation(fields: [bookingId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "BookingLogs_ibfk_1")
+
+  @@index([bookingId], map: "idx_bookingId")
+}
