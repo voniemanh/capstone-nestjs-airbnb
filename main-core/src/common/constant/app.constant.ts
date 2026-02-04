@@ -28,6 +28,7 @@ export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+export const SENDER_EMAIL = process.env.SENDER_EMAIL;
 console.log(
   '\n',
   {

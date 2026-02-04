@@ -13,6 +13,7 @@ import { PrismaService } from 'src/modules-system/prisma/prisma.service';
 import { BookingQueryDto } from './dto/booking-query.dto';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { ClientProxy } from '@nestjs/microservices';
+import { SENDER_EMAIL } from 'src/common/constant/app.constant';
 
 @Injectable()
 export class BookingService {
@@ -178,7 +179,7 @@ export class BookingService {
           const user = await tx.users.findUnique({ where: { id: userId } });
           this.emailClient.emit('send_email', {
             bookingId: booking.id,
-            email: user?.email,
+            email: SENDER_EMAIL,
             name: user?.name,
             checkIn: booking.checkIn,
             checkOut: booking.checkOut,
