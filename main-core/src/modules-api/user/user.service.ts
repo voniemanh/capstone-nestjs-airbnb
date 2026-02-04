@@ -16,7 +16,7 @@ import { UpdateMeDto } from './dto/update-me.dto';
 import { CloudinaryService } from 'src/modules-system/upload/cloudinary.service';
 import { buildQueryPrisma } from 'src/common/helper/build-query-prisma.helper';
 import { UserQueryDto } from './dto/user-query.dto';
-// import { PagingDto } from '../../common/dto/paging.dto';
+
 @Injectable()
 export class UserService {
   constructor(
