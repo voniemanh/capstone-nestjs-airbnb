@@ -95,7 +95,6 @@ export const CommentsScalarFieldEnum = {
   id: 'id',
   roomId: 'roomId',
   userId: 'userId',
-  commentDate: 'commentDate',
   content: 'content',
   rating: 'rating',
   isDeleted: 'isDeleted',

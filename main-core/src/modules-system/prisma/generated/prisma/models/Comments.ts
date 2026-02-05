@@ -44,7 +44,6 @@ export type CommentsMinAggregateOutputType = {
   id: number | null
   roomId: number | null
   userId: number | null
-  commentDate: Date | null
   content: string | null
   rating: number | null
   isDeleted: boolean | null
@@ -56,7 +55,6 @@ export type CommentsMaxAggregateOutputType = {
   id: number | null
   roomId: number | null
   userId: number | null
-  commentDate: Date | null
   content: string | null
   rating: number | null
   isDeleted: boolean | null
@@ -68,7 +66,6 @@ export type CommentsCountAggregateOutputType = {
   id: number
   roomId: number
   userId: number
-  commentDate: number
   content: number
   rating: number
   isDeleted: number
@@ -96,7 +93,6 @@ export type CommentsMinAggregateInputType = {
   id?: true
   roomId?: true
   userId?: true
-  commentDate?: true
   content?: true
   rating?: true
   isDeleted?: true
@@ -108,7 +104,6 @@ export type CommentsMaxAggregateInputType = {
   id?: true
   roomId?: true
   userId?: true
-  commentDate?: true
   content?: true
   rating?: true
   isDeleted?: true
@@ -120,7 +115,6 @@ export type CommentsCountAggregateInputType = {
   id?: true
   roomId?: true
   userId?: true
-  commentDate?: true
   content?: true
   rating?: true
   isDeleted?: true
@@ -219,7 +213,6 @@ export type CommentsGroupByOutputType = {
   id: number
   roomId: number
   userId: number
-  commentDate: Date | null
   content: string | null
   rating: number | null
   isDeleted: boolean
@@ -254,7 +247,6 @@ export type CommentsWhereInput = {
   id?: Prisma.IntFilter<"Comments"> | number
   roomId?: Prisma.IntFilter<"Comments"> | number
   userId?: Prisma.IntFilter<"Comments"> | number
-  commentDate?: Prisma.DateTimeNullableFilter<"Comments"> | Date | string | null
   content?: Prisma.StringNullableFilter<"Comments"> | string | null
   rating?: Prisma.IntNullableFilter<"Comments"> | number | null
   isDeleted?: Prisma.BoolFilter<"Comments"> | boolean
@@ -268,7 +260,6 @@ export type CommentsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  commentDate?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -286,7 +277,6 @@ export type CommentsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CommentsWhereInput | Prisma.CommentsWhereInput[]
   roomId?: Prisma.IntFilter<"Comments"> | number
   userId?: Prisma.IntFilter<"Comments"> | number
-  commentDate?: Prisma.DateTimeNullableFilter<"Comments"> | Date | string | null
   content?: Prisma.StringNullableFilter<"Comments"> | string | null
   rating?: Prisma.IntNullableFilter<"Comments"> | number | null
   isDeleted?: Prisma.BoolFilter<"Comments"> | boolean
@@ -300,7 +290,6 @@ export type CommentsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  commentDate?: Prisma.SortOrderInput | Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -320,7 +309,6 @@ export type CommentsScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Comments"> | number
   roomId?: Prisma.IntWithAggregatesFilter<"Comments"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Comments"> | number
-  commentDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Comments"> | Date | string | null
   content?: Prisma.StringNullableWithAggregatesFilter<"Comments"> | string | null
   rating?: Prisma.IntNullableWithAggregatesFilter<"Comments"> | number | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"Comments"> | boolean
@@ -329,7 +317,6 @@ export type CommentsScalarWhereWithAggregatesInput = {
 }
 
 export type CommentsCreateInput = {
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -343,7 +330,6 @@ export type CommentsUncheckedCreateInput = {
   id?: number
   roomId: number
   userId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -352,7 +338,6 @@ export type CommentsUncheckedCreateInput = {
 }
 
 export type CommentsUpdateInput = {
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -366,7 +351,6 @@ export type CommentsUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -378,7 +362,6 @@ export type CommentsCreateManyInput = {
   id?: number
   roomId: number
   userId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -387,7 +370,6 @@ export type CommentsCreateManyInput = {
 }
 
 export type CommentsUpdateManyMutationInput = {
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -399,7 +381,6 @@ export type CommentsUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -417,7 +398,6 @@ export type CommentsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  commentDate?: Prisma.SortOrder
   content?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -436,7 +416,6 @@ export type CommentsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  commentDate?: Prisma.SortOrder
   content?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -448,7 +427,6 @@ export type CommentsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  commentDate?: Prisma.SortOrder
   content?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -566,7 +544,6 @@ export type CommentsUncheckedUpdateManyWithoutUsersNestedInput = {
 }
 
 export type CommentsCreateWithoutRoomsInput = {
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -578,7 +555,6 @@ export type CommentsCreateWithoutRoomsInput = {
 export type CommentsUncheckedCreateWithoutRoomsInput = {
   id?: number
   userId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -619,7 +595,6 @@ export type CommentsScalarWhereInput = {
   id?: Prisma.IntFilter<"Comments"> | number
   roomId?: Prisma.IntFilter<"Comments"> | number
   userId?: Prisma.IntFilter<"Comments"> | number
-  commentDate?: Prisma.DateTimeNullableFilter<"Comments"> | Date | string | null
   content?: Prisma.StringNullableFilter<"Comments"> | string | null
   rating?: Prisma.IntNullableFilter<"Comments"> | number | null
   isDeleted?: Prisma.BoolFilter<"Comments"> | boolean
@@ -628,7 +603,6 @@ export type CommentsScalarWhereInput = {
 }
 
 export type CommentsCreateWithoutUsersInput = {
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -640,7 +614,6 @@ export type CommentsCreateWithoutUsersInput = {
 export type CommentsUncheckedCreateWithoutUsersInput = {
   id?: number
   roomId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -677,7 +650,6 @@ export type CommentsUpdateManyWithWhereWithoutUsersInput = {
 export type CommentsCreateManyRoomsInput = {
   id?: number
   userId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -686,7 +658,6 @@ export type CommentsCreateManyRoomsInput = {
 }
 
 export type CommentsUpdateWithoutRoomsInput = {
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -698,7 +669,6 @@ export type CommentsUpdateWithoutRoomsInput = {
 export type CommentsUncheckedUpdateWithoutRoomsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -709,7 +679,6 @@ export type CommentsUncheckedUpdateWithoutRoomsInput = {
 export type CommentsUncheckedUpdateManyWithoutRoomsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -720,7 +689,6 @@ export type CommentsUncheckedUpdateManyWithoutRoomsInput = {
 export type CommentsCreateManyUsersInput = {
   id?: number
   roomId: number
-  commentDate?: Date | string | null
   content?: string | null
   rating?: number | null
   isDeleted?: boolean
@@ -729,7 +697,6 @@ export type CommentsCreateManyUsersInput = {
 }
 
 export type CommentsUpdateWithoutUsersInput = {
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -741,7 +708,6 @@ export type CommentsUpdateWithoutUsersInput = {
 export type CommentsUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -752,7 +718,6 @@ export type CommentsUncheckedUpdateWithoutUsersInput = {
 export type CommentsUncheckedUpdateManyWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
-  commentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -766,7 +731,6 @@ export type CommentsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   roomId?: boolean
   userId?: boolean
-  commentDate?: boolean
   content?: boolean
   rating?: boolean
   isDeleted?: boolean
@@ -782,7 +746,6 @@ export type CommentsSelectScalar = {
   id?: boolean
   roomId?: boolean
   userId?: boolean
-  commentDate?: boolean
   content?: boolean
   rating?: boolean
   isDeleted?: boolean
@@ -790,7 +753,7 @@ export type CommentsSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CommentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roomId" | "userId" | "commentDate" | "content" | "rating" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["comments"]>
+export type CommentsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "roomId" | "userId" | "content" | "rating" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["comments"]>
 export type CommentsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Rooms?: boolean | Prisma.RoomsDefaultArgs<ExtArgs>
   Users?: boolean | Prisma.UsersDefaultArgs<ExtArgs>
@@ -806,7 +769,6 @@ export type $CommentsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     roomId: number
     userId: number
-    commentDate: Date | null
     content: string | null
     rating: number | null
     isDeleted: boolean
@@ -1186,7 +1148,6 @@ export interface CommentsFieldRefs {
   readonly id: Prisma.FieldRef<"Comments", 'Int'>
   readonly roomId: Prisma.FieldRef<"Comments", 'Int'>
   readonly userId: Prisma.FieldRef<"Comments", 'Int'>
-  readonly commentDate: Prisma.FieldRef<"Comments", 'DateTime'>
   readonly content: Prisma.FieldRef<"Comments", 'String'>
   readonly rating: Prisma.FieldRef<"Comments", 'Int'>
   readonly isDeleted: Prisma.FieldRef<"Comments", 'Boolean'>

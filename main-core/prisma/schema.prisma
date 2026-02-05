@@ -28,17 +28,16 @@ model Bookings {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model Comments {
-  id          Int       @id @default(autoincrement())
-  roomId      Int
-  userId      Int
-  commentDate DateTime? @db.DateTime(0)
-  content     String?   @db.VarChar(255)
-  rating      Int?      @db.TinyInt
-  isDeleted   Boolean   @default(false)
-  createdAt   DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt   DateTime  @default(now()) @db.Timestamp(0)
-  Rooms       Rooms     @relation(fields: [roomId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_rooms")
-  Users       Users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_users")
+  id        Int      @id @default(autoincrement())
+  roomId    Int
+  userId    Int
+  content   String?  @db.VarChar(255)
+  rating    Int?     @db.TinyInt
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @db.Timestamp(0)
+  Rooms     Rooms    @relation(fields: [roomId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_rooms")
+  Users     Users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_users")
 
   @@index([userId], map: "fk_comments_users")
   @@index([roomId], map: "idx_comments_roomId")
