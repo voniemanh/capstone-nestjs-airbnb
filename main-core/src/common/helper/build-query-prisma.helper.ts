@@ -35,6 +35,8 @@ export async function buildQueryPrisma({
     baseWhere: where,
   });
 
+  console.log('FINAL WHERE:', JSON.stringify(filteredWhere, null, 2));
+
   const [data, total] = await Promise.all([
     prismaModel.findMany({
       where: filteredWhere,

@@ -5,11 +5,11 @@ export class PagingDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  page?: number = 1;
+  page?: number;
 
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  pageSize?: number = 10;
+  pageSize?: number;
 }
