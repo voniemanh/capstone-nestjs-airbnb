@@ -55,15 +55,13 @@ export class UserService {
   async getAllUsers(query: UserQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.users,
-      query,
+      pagingQuery: query,
       filters: query,
-      filterOptions: {
-        stringFields: ['name', 'email'],
-        exactFields: ['role'],
-      },
-      where: { isDeleted: false },
+      fieldOptions: { string: ['name', 'email', 'role'] },
       orderBy: { createdAt: 'asc' },
+      select: this.userSelect,
     });
+
     return {
       message: 'Lấy danh sách users thành công',
       ...result,

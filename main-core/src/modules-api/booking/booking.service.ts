@@ -315,13 +315,10 @@ export class BookingService {
     await this.checkBookingExist(userId);
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.bookings,
-      query,
+      pagingQuery: query,
       filters: query,
-      where: { userId },
-      filterOptions: {
-        stringFields: ['note'],
-        exactFields: ['roomId', 'status'],
-      },
+      baseWhere: { userId },
+      fieldOptions: { number: ['roomId'], string: ['status'] },
       include: {
         Rooms: true,
         Users: { select: this.userSelect },
@@ -340,12 +337,9 @@ export class BookingService {
   async getAllBookings(query: BookingQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.bookings,
-      query,
+      pagingQuery: query,
       filters: query,
-      filterOptions: {
-        stringFields: ['note'],
-        exactFields: ['roomId', 'status', 'userId'],
-      },
+      fieldOptions: { number: ['roomId', 'userId'], string: ['status'] },
       include: {
         Rooms: true,
         Users: { select: this.userSelect },
@@ -373,8 +367,8 @@ export class BookingService {
     await this.checkBookingExist(userId);
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.bookings,
-      query,
-      where: { userId },
+      pagingQuery: query,
+      baseWhere: { userId },
       include: {
         Rooms: true,
         Users: { select: this.userSelect },

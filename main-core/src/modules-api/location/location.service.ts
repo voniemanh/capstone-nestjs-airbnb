@@ -66,14 +66,10 @@ export class LocationService {
   async getListLocations(query: LocationQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.locations,
-      query,
+      pagingQuery: query,
       filters: query,
-      filterOptions: {
-        stringFields: ['name', 'city', 'country'],
-      },
-      where: { isDeleted: false },
+      fieldOptions: { string: ['name', 'city', 'country'] },
       orderBy: { createdAt: 'asc' },
-      include: {},
     });
 
     return {

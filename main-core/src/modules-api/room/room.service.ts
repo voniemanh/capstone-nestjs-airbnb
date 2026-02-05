@@ -27,6 +27,19 @@ export class RoomService {
     avatar: true,
   };
 
+  private fieldOptions = {
+    string: ['name', 'description'],
+    number: [
+      'price',
+      'locationId',
+      'userId',
+      'bedCount',
+      'bedroomCount',
+      'guestCount',
+      'bathroomCount',
+    ],
+  };
+
   private async checkRoomExist(roomId: number) {
     const room = await this.prisma.rooms.findUnique({
       where: { id: roomId },
@@ -52,30 +65,9 @@ export class RoomService {
   async getAllRooms(query: RoomQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.rooms,
-      query,
+      pagingQuery: query,
       filters: query,
-      filterOptions: {
-        stringFields: ['name', 'description'],
-        exactFields: [
-          'hasWashingMachine',
-          'hasIron',
-          'hasTV',
-          'hasAC',
-          'hasWifi',
-          'hasKitchen',
-          'hasParking',
-          'hasPool',
-          'hasHeater',
-          'guestCount',
-          'bedroomCount',
-          'bedCount',
-          'bathroomCount',
-          'price',
-          'locationId',
-          'userId',
-        ],
-      },
-      where: { isDeleted: false },
+      fieldOptions: this.fieldOptions,
       orderBy: { createdAt: 'asc' },
       include: {
         Users: { select: this.userSelect },
@@ -91,29 +83,10 @@ export class RoomService {
   async getAllRoomsByLocation(locationId: number, query: RoomQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.rooms,
-      query,
+      pagingQuery: query,
       filters: query,
-      filterOptions: {
-        stringFields: ['name', 'description'],
-        exactFields: [
-          'hasWashingMachine',
-          'hasIron',
-          'hasTV',
-          'hasAC',
-          'hasWifi',
-          'hasKitchen',
-          'hasParking',
-          'hasPool',
-          'hasHeater',
-          'guestCount',
-          'bedroomCount',
-          'bedCount',
-          'bathroomCount',
-          'price',
-          'userId',
-        ],
-      },
-      where: { isDeleted: false, locationId },
+      fieldOptions: this.fieldOptions,
+      baseWhere: { locationId },
       orderBy: { createdAt: 'asc' },
       include: {
         Users: { select: this.userSelect },

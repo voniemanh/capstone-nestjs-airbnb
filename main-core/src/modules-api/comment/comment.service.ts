@@ -81,8 +81,8 @@ export class CommentService {
     await this.checkRoomExist(roomId);
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.comments,
-      query,
-      where: { roomId },
+      pagingQuery: query,
+      baseWhere: { roomId },
       include: {
         Users: {
           select: this.userSelect,
@@ -100,8 +100,8 @@ export class CommentService {
   async findCommentByUserId(userId: number, query: PagingDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.comments,
-      query,
-      where: { userId },
+      pagingQuery: query,
+      baseWhere: { userId },
       include: {
         Users: {
           select: this.userSelect,

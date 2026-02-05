@@ -1,54 +1,90 @@
-import { filter } from 'rxjs';
 import { PagingDto } from '../dto/paging.dto';
-import { buildPaging } from './build-paging.helper';
-import { buildWhere } from './build-where.helper';
 
 export async function buildQueryPrisma({
   prismaModel,
-  query,
+  pagingQuery,
   filters = {},
-  where = {},
-  filterOptions,
+  fieldOptions,
+  baseWhere = {},
   include,
   select,
   orderBy,
 }: {
   prismaModel: any;
-  query?: PagingDto;
+  pagingQuery?: PagingDto;
   filters?: Record<string, any>;
-  where?: any;
-  filterOptions?: {
-    stringFields?: string[];
-    exactFields?: string[];
-    baseWhere?: Record<string, any>;
+  fieldOptions?: {
+    string?: string[];
+    number?: string[];
+    boolean?: string[];
   };
+  baseWhere?: Record<string, any>;
   include?: any;
   select?: any;
   orderBy?: any;
 }) {
-  console.log('RAW QUERY:', query);
-  console.log('RAW FILTERS:', filters);
+  // ===== Paging =====
+  const page = pagingQuery?.page ?? 1;
+  const pageSize = pagingQuery?.pageSize ?? 10;
+  const skip = (page - 1) * pageSize;
 
-  const { page, pageSize, index } = buildPaging(query);
-  const filteredWhere = buildWhere(filters, {
-    ...filterOptions,
-    baseWhere: where,
-  });
+  // ===== Where base =====
+  const where: Record<string, any> = {
+    isDeleted: false,
+    ...baseWhere,
+  };
 
-  console.log('FINAL WHERE:', JSON.stringify(filteredWhere, null, 2));
+  // ===== Build filters =====
+  for (const [key, value] of Object.entries(filters)) {
+    if (value === undefined || value === null || value === '') continue;
 
+    // STRING (search)
+    if (fieldOptions?.string?.includes(key)) {
+      if (typeof value === 'string') {
+        where[key] = {
+          contains: value,
+        };
+      }
+      continue;
+    }
+
+    // NUMBER (exact)
+    if (fieldOptions?.number?.includes(key)) {
+      const num = Number(value);
+      if (!Number.isNaN(num)) {
+        where[key] = num;
+      }
+      continue;
+    }
+
+    // BOOLEAN
+    if (fieldOptions?.boolean?.includes(key)) {
+      if (value === 'true' || value === true) where[key] = true;
+      else if (value === 'false' || value === false) where[key] = false;
+    }
+  }
+
+  // ===== Query options =====
+  const queryOptions: any = {
+    where,
+    skip,
+    take: pageSize,
+    orderBy,
+  };
+
+  if (select) queryOptions.select = select;
+  else if (include) queryOptions.include = include;
+
+  // ===== Execute =====
   const [data, total] = await Promise.all([
-    prismaModel.findMany({
-      where: filteredWhere,
-      skip: index,
-      take: pageSize,
-      include,
-      select,
-      orderBy,
-    }),
-    prismaModel.count({ where: filteredWhere }),
+    prismaModel.findMany(queryOptions),
+    prismaModel.count({ where }),
   ]);
-  console.log('FINAL WHERE:', filteredWhere);
 
-  return { data, page, pageSize, total };
+  return {
+    data,
+    page,
+    pageSize,
+    total,
+  };
 }
