@@ -98,26 +98,6 @@ export class LocationService {
     };
   }
 
-  async searchLocation(keyword: string) {
-    const locations = await this.prisma.locations.findMany({
-      where: {
-        name: {
-          contains: keyword,
-        },
-        isDeleted: false,
-      },
-      select: this.locationSelect,
-    });
-    if (!locations || locations.length === 0) {
-      throw new NotFoundException('Không tìm thấy location nào');
-    }
-
-    return {
-      message: 'Tìm kiếm location thành công',
-      data: locations,
-    };
-  }
-
   async updateLocation(id: number, data: UpdateLocationDto) {
     await this.checkExist(id);
 

@@ -7,6 +7,7 @@ GET auth/google-callback
 
 USER
 GET users JWT (ADMIN)
+GET users/me (jwt)
 POST users JWT (ADMIN)
 DELETE users/{id} JWT (ADMIN)
 GET users/{id} JWT
@@ -27,13 +28,12 @@ GET rooms/saved/:userId JWT (owner/ADMIN)
 DELETE rooms/{id} JWT (owner / ADMIN)
 
 LOCATION
-GET locations Public
+GET locations Public (filters(country, city, name))
 POST locations JWT (ADMIN)
 GET locations/{id} Public
 PATCH locations/{id} JWT (ADMIN)
 DELETE locations/{id} JWT (ADMIN)
 POST locations/upload-image JWT (ADMIN)
-GET locations/search/keyword Public
 
 BOOKING
 GET bookings JWT (ADMIN) (filter{ status, fromto, roomId})
@@ -58,6 +58,10 @@ SAVED-ROOMS
 GET saved-room JWT
 POST saved-room/save JWT
 DELETE saved-room/unsave JWT
+
+SEARCH
+
+GET search-app/?text= ()
 
 =========Booking flow=======
 

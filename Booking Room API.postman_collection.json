@@ -1,0 +1,1281 @@
+{
+  "info": {
+    "_postman_id": "1951f949-505f-4e4f-91c5-2b2a4ab1ac8b",
+    "name": "Booking Room API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50016664",
+    "_collection_link": "https://go.postman.co/collection/50016664-1951f949-505f-4e4f-91c5-2b2a4ab1ac8b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "AUTH",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Chu Thi B\",\n  \"email\": \"chub@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0909123457\",\n  \"birthday\": \"1999-05-20\",\n  \"gender\": \"female\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/auth/signup",
+              "host": ["{{domain}}"],
+              "path": ["auth", "signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const { data } = pm.response.json();",
+                  "",
+                  "pm.environment.set(\"accessToken\", data.accessToken);",
+                  "pm.environment.set(\"refreshToken\", data.refreshToken);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"lee1@example.com\",\n  \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/auth/signin",
+              "host": ["{{domain}}"],
+              "path": ["auth", "signin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const { data } = pm.response.json();",
+                  "pm.environment.set(\"accessToken\", data.accessToken);",
+                  "pm.environment.set(\"refreshToken\", data.refreshToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{refreshToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"{{accessToken}}\",\n  \"refreshToken\": \"{{refreshToken}}\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/auth/refresh-token",
+              "host": ["{{domain}}"],
+              "path": ["auth", "refresh-token"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Google Login",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/auth/google",
+              "host": ["{{domain}}"],
+              "path": ["auth", "google"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Google Call-back",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/auth/google-callback",
+              "host": ["{{domain}}"],
+              "path": ["auth", "google-callback"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "USER",
+      "item": [
+        {
+          "name": "Get Users (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/users",
+              "host": ["{{domain}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tran Van F\",\n  \"email\": \"tranf@gmail.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0911222111\",\n  \"birthday\": \"1999-01-01\",\n  \"gender\": \"MALE\",\n  \"role\": \"USER\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/users",
+              "host": ["{{domain}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/users/me",
+              "host": ["{{domain}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/users/id/2",
+              "host": ["{{domain}}"],
+              "path": ["users", "id", "2"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "2",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Super Admin so handsome\",\n  \"phone\": \"0988777666\",\n  \"birthday\": \"1998-02-02\",\n  \"gender\": \"MALE\",\n  \"avatar\": \"https://cdn.avatar.com/b.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/users/me",
+              "host": ["{{domain}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/users/2",
+              "host": ["{{domain}}"],
+              "path": ["users", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Users (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/users/search?keyword=d",
+              "host": ["{{domain}}"],
+              "path": ["users", "search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "d"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0e77e6-6b99-47e0-a68a-7e208454eb8b"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{domain}}/users/upload-avatar",
+              "host": ["{{domain}}"],
+              "path": ["users", "upload-avatar"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ROOM",
+      "item": [
+        {
+          "name": "Get Rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms?price=120",
+              "host": ["{{domain}}"],
+              "path": ["rooms"],
+              "query": [
+                {
+                  "key": "price",
+                  "value": "120"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Room",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cheap Apartment A\",\n  \"guestCount\": 3,\n  \"bedroomCount\": 2,\n  \"bedCount\": 2,\n  \"bathroomCount\": 1,\n  \"description\": \"Cheap room\",\n  \"price\": 200,\n  \"locationId\": 1\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/rooms",
+              "host": ["{{domain}}"],
+              "path": ["rooms"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Room By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/3",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Room",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 150,\n  \"description\": \"Updated description\",\n  \"hasPool\": true,\n  \"hasParking\": true\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/rooms/2",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Room",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/4",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rooms By Location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/by-location/1",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "by-location", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Room Image",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "roomImage",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0f1b63-3620-4890-819a-4b92a03dc959"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{domain}}/rooms/4/upload-image",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "4", "upload-image"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Room By keyword",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/search/?keyword=cheap",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "search", ""],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "cheap"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get created rooms by user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/created/:userId",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "created", ":userId"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get saved rooms by user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/rooms/saved/:userId",
+              "host": ["{{domain}}"],
+              "path": ["rooms", "saved", ":userId"],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "LOCATION",
+      "item": [
+        {
+          "name": "Get Locations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/locations?city=Ho Chi Minh",
+              "host": ["{{domain}}"],
+              "path": ["locations"],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Ho Chi Minh"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Location (ADMIN)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Shibuya\",\n  \"city\": \"Tokyo\",\n  \"country\": \"Japan\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/locations",
+              "host": ["{{domain}}"],
+              "path": ["locations"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Location By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/locations/4",
+              "host": ["{{domain}}"],
+              "path": ["locations", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Location (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Shinjuku\",\n  \"city\": \"Tokyo\",\n  \"country\": \"JP\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/locations/2",
+              "host": ["{{domain}}"],
+              "path": ["locations", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Location (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/locations/2",
+              "host": ["{{domain}}"],
+              "path": ["locations", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Location Image (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "locationImage",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0e16de-32e9-40d0-b70a-4b32c0d1da74"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{domain}}/locations/2/upload-location-image",
+              "host": ["{{domain}}"],
+              "path": ["locations", "2", "upload-location-image"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "BOOKING",
+      "item": [
+        {
+          "name": "Get All Bookings (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings",
+              "host": ["{{domain}}"],
+              "path": ["bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomId\": 3,\n  \"checkIn\": \"2026-06-01\",\n  \"checkOut\": \"2026-06-03\",\n  \"guestCount\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/bookings",
+              "host": ["{{domain}}"],
+              "path": ["bookings"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking By Booking ID (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/by-booking/1",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "by-booking", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Booking (by ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"checkOut\": \"2026-02-06 12:00:00\",\n  \"guestCount\": 3\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/bookings/4/admin-cancel",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "4", "admin-cancel"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Booking by user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/1/cancel",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "1", "cancel"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking By User Id (ADMIN)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/by-user/1",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "by-user", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Booking By Booking Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/me/by-booking/5",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "me", "by-booking", "5"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get my bookings",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/me",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Available Day by Room Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/availability/2?from=\"2026-02-02\"&to=\"2026-10-22\"",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "availability", "2"],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "\"2026-02-02\""
+                },
+                {
+                  "key": "to",
+                  "value": "\"2026-10-22\""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Calendar by Room Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/bookings/calendar/2/?year=2026&month=2",
+              "host": ["{{domain}}"],
+              "path": ["bookings", "calendar", "2", ""],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2026"
+                },
+                {
+                  "key": "month",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "COMMENT",
+      "item": [
+        {
+          "name": "Get Comments By Room",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/comments/by-room/2",
+              "host": ["{{domain}}"],
+              "path": ["comments", "by-room", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Comments By User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/comments/by-user/3",
+              "host": ["{{domain}}"],
+              "path": ["comments", "by-user", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Comment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomId\": 2,\n  \"content\": \"Phòng sạch, chủ dễ thương 🥰\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/comments",
+              "host": ["{{domain}}"],
+              "path": ["comments"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Comment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Ở lần thứ 2 vẫn rất ok\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/comments/1",
+              "host": ["{{domain}}"],
+              "path": ["comments", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Comment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/comments/1",
+              "host": ["{{domain}}"],
+              "path": ["comments", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SAVED ROOMS",
+      "item": [
+        {
+          "name": "Get Saved Rooms",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/saved-room",
+              "host": ["{{domain}}"],
+              "path": ["saved-room"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save Room",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/saved-room/save/2",
+              "host": ["{{domain}}"],
+              "path": ["saved-room", "save", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unsave Room",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}/saved-room/unsave/3",
+              "host": ["{{domain}}"],
+              "path": ["saved-room", "unsave", "3"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SEARCH",
+      "item": [
+        {
+          "name": "Search APP",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{domain}}/search-app?text=cheap",
+              "host": ["{{domain}}"],
+              "path": ["search-app"],
+              "query": [
+                {
+                  "key": "text",
+                  "value": "cheap"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}

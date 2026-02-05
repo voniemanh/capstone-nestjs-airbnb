@@ -72,12 +72,6 @@ export class LocationController {
   }
 
   @Public()
-  @Get('search')
-  @CacheTTL(ttlMs(TTL.LOCATION_LIST))
-  searchLocation(@Query('keyword') keyword: string) {
-    return this.locationService.searchLocation(keyword);
-  }
-  @Public()
   @CacheTTL(ttlMs(TTL.LOCATION_DETAIL))
   @Get(':id')
   getLocationById(@Param('id', ParseIntPipe) id: number) {
