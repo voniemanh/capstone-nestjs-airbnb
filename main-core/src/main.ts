@@ -12,11 +12,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      whitelist: true, // xoá field dư
-      // forbidNonWhitelisted: false, // không ném lỗi
-      // transformOptions: {
-      //   enableImplicitConversion: true,
-      // },
+      whitelist: true,
     }),
   );
   app.useGlobalInterceptors(new LoggingInterceptor());

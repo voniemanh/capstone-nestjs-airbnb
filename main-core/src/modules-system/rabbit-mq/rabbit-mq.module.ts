@@ -25,7 +25,6 @@ import { RABBITMQ_URL } from 'src/common/constant/app.constant';
         },
       },
     ]),
-    //muốn thêm 1 service nữa thì thêm 1 object ClientsModule.register vào trong mảng
   ],
   exports: [ClientsModule],
 })

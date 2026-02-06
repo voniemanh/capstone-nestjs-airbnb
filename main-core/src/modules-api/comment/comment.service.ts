@@ -58,7 +58,7 @@ export class CommentService {
     }
   }
 
-  // ================= PUBLIC =================
+  //PUBLIC
   async createComment(body: CreateCommentDto, userId: number) {
     const { roomId, content } = body;
     await this.checkRoomExist(roomId);
@@ -125,7 +125,7 @@ export class CommentService {
       ...result,
     };
   }
-
+  //OWNER
   async updateComment(id: number, body: UpdateCommentDto, user: any) {
     const { content } = body;
     const comment = await this.checkCommentExist(id);
@@ -150,6 +150,8 @@ export class CommentService {
       data: updatedComment,
     };
   }
+
+  //ADMIN or OWNER
   async removeComment(id: number, user: any) {
     const comment = await this.checkCommentExist(id);
     const isOwner = comment.userId === user.id;

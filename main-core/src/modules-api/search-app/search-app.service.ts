@@ -42,7 +42,7 @@ export class SearchAppService implements OnModuleInit {
 
     users.forEach((user) => {
       this.elasticsearchService.index({
-        index: index, // giống với table trong mysql
+        index: index,
         id: String(user.id),
         document: user,
       });
@@ -52,8 +52,8 @@ export class SearchAppService implements OnModuleInit {
   async initRooms() {
     const index = 'rooms';
     await this.elasticsearchService.indices.delete({
-      index: index, // giống với table trong mysql,
-      ignore_unavailable: true, // nếu mà index chưa có thì không báo lỗi
+      index: index,
+      ignore_unavailable: true,
     });
 
     const rooms = await this.prisma.rooms.findMany();
@@ -70,15 +70,15 @@ export class SearchAppService implements OnModuleInit {
   async initLocations() {
     const index = 'locations';
     await this.elasticsearchService.indices.delete({
-      index: index, // giống với table trong mysql,
-      ignore_unavailable: true, // nếu mà index chưa có thì không báo looix
+      index: index,
+      ignore_unavailable: true,
     });
 
     const locations = await this.prisma.locations.findMany();
 
     locations.forEach((location) => {
       this.elasticsearchService.index({
-        index: index, // giống với table trong mysql
+        index: index,
         id: String(location.id),
         document: location,
       });

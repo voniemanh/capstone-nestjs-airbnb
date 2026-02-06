@@ -24,9 +24,7 @@ import { BookingQueryDto } from './dto/booking-query.dto';
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
-  // ---------------------------
   // ADMIN ONLY
-  // ---------------------------
   @Admin()
   @Get()
   async getAllBookings(@Query() query: BookingQueryDto) {
@@ -57,9 +55,7 @@ export class BookingController {
     return this.bookingService.adminCancelBooking(admin.id, id);
   }
 
-  // ---------------------------
   // OWNER / CURRENT USER
-  // ---------------------------
   @Get('me')
   async getMyBookings(@CurrentUser() user, @Query() query: BookingQueryDto) {
     return this.bookingService.getMyBookings(user.id, query);
@@ -89,9 +85,7 @@ export class BookingController {
     return this.bookingService.cancelBooking(user.id, id);
   }
 
-  // ---------------------------
   // PUBLIC
-  // ---------------------------
   @Public()
   @Get('availability/:roomId')
   async getAvailability(
@@ -106,9 +100,7 @@ export class BookingController {
     );
   }
 
-  // ---------------------------
   // OWNER / ADMIN
-  // ---------------------------
   @Get('calendar/:roomId')
   async getCalendar(
     @Param('roomId', ParseIntPipe) roomId: number,

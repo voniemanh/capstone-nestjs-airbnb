@@ -11,7 +11,6 @@ import {
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { ProtectGuard } from 'src/common/guards/protect.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-// import { CreateSavedRoomDto } from './dto/create-saved-room.dto';
 import { SavedRoomService } from './saved-room.service';
 
 @UseGuards(ProtectGuard, RolesGuard)

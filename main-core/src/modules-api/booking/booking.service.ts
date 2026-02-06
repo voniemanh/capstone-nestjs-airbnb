@@ -134,7 +134,7 @@ export class BookingService {
   }
 
   // CRUD
-  //Tạo booking với Redis lock + transaction
+  //Tạo booking với Redis lock + transaction //USER JWT
   async createBooking(userId: number, dto: CreateBookingDto) {
     // kiểm tra room tồn tại
     await this.checkRoomExists(dto.roomId);
@@ -202,7 +202,7 @@ export class BookingService {
     ); // 20s lock
   }
 
-  // Cancel booking (owner)
+  // Cancel booking (OWNER)
   async cancelBooking(userId: number, bookingId: number) {
     const booking = await this.prisma.bookings.findUnique({
       where: { id: bookingId },
@@ -254,7 +254,6 @@ export class BookingService {
     });
   }
 
-  // Get bookings availability for a room
   async getAvailability(roomId: number, from: Date, to: Date) {
     // 1. Lấy các booking overlap
     const bookings = await this.prisma.bookings.findMany({
@@ -303,8 +302,7 @@ export class BookingService {
       freeSlots,
     };
   }
-
-  // Get bookings for a user
+  // OWNER / CURRENT USER
   async getMyBookings(userId: number, query: BookingQueryDto) {
     await this.checkBookingExist(userId);
     const result = await buildQueryPrisma({
@@ -326,7 +324,7 @@ export class BookingService {
       ...result,
     };
   }
-  // Get bookings for admin
+  //ADMIN ONLY
   async getAllBookings(query: BookingQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.bookings,
@@ -380,7 +378,7 @@ export class BookingService {
     };
   }
 
-  //owner/admin
+  // OWNER / ADMIN
   async getBookingsForCalendar(roomId: number, month: number, year: number) {
     const start = new Date(year, month - 1, 1);
     const end = new Date(year, month, 0, 23, 59, 59);

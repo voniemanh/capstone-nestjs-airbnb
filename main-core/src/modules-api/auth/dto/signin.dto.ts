@@ -8,7 +8,5 @@ export class SigninDto {
 
   @IsString()
   @IsNotEmpty()
-  //   IsOptional: nếu mà người dùng gửi lên thì mới kiểm tra, còn không gửi thì không kiểm tra
-  //   @IsOptional()
   password!: string;
 }

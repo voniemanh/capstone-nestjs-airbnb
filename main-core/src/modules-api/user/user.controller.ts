@@ -18,7 +18,6 @@ import { Admin } from 'src/common/decorators/roles.decorator';
 import { ProtectGuard } from 'src/common/guards/protect.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UploadImageInterceptor } from 'src/common/interceptors/upload-image.interceptor';
-// import { PagingDto } from '../../common/dto/paging.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateMeDto } from './dto/update-me.dto';
 import { UserService } from './user.service';
@@ -32,7 +31,7 @@ import { UserQueryDto } from './dto/user-query.dto';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // ================= ADMIN =================
+  //ADMIN
   @Admin()
   @Get()
   getAllUsers(@Query() query: UserQueryDto) {
@@ -67,7 +66,7 @@ export class UserController {
     return result;
   }
 
-  // ================= USER =================
+  //USER
   @Get('me')
   @CacheTTL(ttlMs(TTL.USER_ME))
   getMe(@CurrentUser() user) {

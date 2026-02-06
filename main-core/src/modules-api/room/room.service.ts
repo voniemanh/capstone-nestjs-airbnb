@@ -20,7 +20,7 @@ export class RoomService {
     private readonly prisma: PrismaService,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
-  // ================= HELPER =================
+  //HELPER
   private userSelect = {
     id: true,
     name: true,
@@ -77,7 +77,7 @@ export class RoomService {
     }
   }
 
-  // ================= PUBLIC =================
+  //PUBLIC
   async getAllRooms(query: RoomQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.rooms,
@@ -160,7 +160,7 @@ export class RoomService {
     };
   }
 
-  // ================= OWNER =================
+  //OWNER
 
   async createRoom(body: CreateRoomDto, userId: number) {
     // cấm admin tạo room (Airbnb-style)
@@ -249,7 +249,7 @@ export class RoomService {
     };
   }
 
-  // ================= OWNER / ADMIN =================
+  //OWNER / ADMIN
 
   async removeRoom(id: number, user: any) {
     const room = await this.checkRoomExist(id);

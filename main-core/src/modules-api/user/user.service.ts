@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async onModuleInit() {
-    // Ensure that at least one admin user exists
+    // Tao admin dau tien neu chua ton tai
     const adminExists = await this.prisma.users.findFirst({
       where: { email: ADMIN_EMAIL as string },
     });
@@ -58,7 +58,7 @@ export class UserService {
     }
   }
 
-  // Lấy tất cả users (ADMIN)
+  //  (ADMIN)
   async getAllUsers(query: UserQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.users,
@@ -89,7 +89,7 @@ export class UserService {
     };
   }
 
-  // Tạo user mới (ADMIN)
+  // (ADMIN)
   async createUser(data: CreateUserDto) {
     const exists = await this.prisma.users.findUnique({
       where: { email: data.email },
@@ -112,7 +112,7 @@ export class UserService {
     };
   }
 
-  // Xoá user theo id (ADMIN)
+  // (ADMIN)
   async deleteUser(id: number) {
     const user = await this.prisma.users.findUnique({
       where: { id: Number(id), isDeleted: false },
@@ -132,7 +132,7 @@ export class UserService {
     };
   }
 
-  // Lấy thông tin user hiện tại
+  // current user
   async getMe(userId: number) {
     const user = await this.prisma.users.findUnique({
       where: { id: Number(userId), isDeleted: false },
@@ -164,7 +164,7 @@ export class UserService {
     };
   }
 
-  // Tìm kiếm user theo keyword (ADMIN)
+  // (ADMIN)
   async searchUsers(keyword: string) {
     const lowerKeyword = keyword.toLowerCase();
     const result = await this.prisma.users.findMany({
@@ -183,7 +183,7 @@ export class UserService {
       data: result,
     };
   }
-  // Upload avatar
+  // Upload avatar // current user
   async uploadAvatar(userId: number, file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException('Vui lòng chọn file ảnh');

@@ -3,14 +3,12 @@ import { IsBoolean, IsOptional } from 'class-validator';
 import { PagingDto } from 'src/common/dto/paging.dto';
 
 export class RoomQueryDto extends PagingDto {
-  // ===== STRING =====
   @IsOptional()
   name?: string;
 
   @IsOptional()
   description?: string;
 
-  // ===== NUMBER =====
   @IsOptional()
   @Type(() => Number)
   price?: number;
@@ -39,7 +37,6 @@ export class RoomQueryDto extends PagingDto {
   @Type(() => Number)
   userId?: number;
 
-  // ===== BOOLEAN =====
   @IsOptional()
   @IsBoolean()
   hasIron?: boolean;

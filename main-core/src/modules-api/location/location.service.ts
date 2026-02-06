@@ -50,7 +50,7 @@ export class LocationService {
     imageUrl: true,
     createdAt: true,
   };
-
+  //ADMIN ONLY
   async createLocation(data: CreateLocationDto) {
     const existLocation = await this.prisma.locations.findFirst({
       where: {
@@ -72,7 +72,7 @@ export class LocationService {
       data: createdLocation,
     };
   }
-
+  //PUBLIC
   async getListLocations(query: LocationQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.locations,
@@ -108,6 +108,7 @@ export class LocationService {
     };
   }
 
+  //ADMIN ONLY
   async updateLocation(id: number, data: UpdateLocationDto) {
     await this.checkLocationExist(id);
 
