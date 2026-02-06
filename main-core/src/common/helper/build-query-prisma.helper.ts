@@ -30,7 +30,6 @@ export async function buildQueryPrisma({
 
   // ===== Where base =====
   const where: Record<string, any> = {
-    // isDeleted: false,
     ...baseWhere,
   };
 
