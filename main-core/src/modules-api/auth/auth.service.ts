@@ -72,13 +72,17 @@ export class AuthService {
   }
 
   async googleCallback(req: any) {
-    console.log('user google', req.user);
+    const user = req.user;
+
+    if (!user) {
+      throw new BadRequestException('Đăng nhập Google không thành công');
+    }
 
     const { accessToken, refreshToken } = this.tokenService.createTokens(
-      req.user.user_id,
+      user.id.toString(),
     );
     const urlRedirect = `http://localhost:3000/login-callback?accessToken=${accessToken}&refreshToken=${refreshToken}`;
-    console.log('urlRedirect', urlRedirect);
+
     return urlRedirect;
   }
 
