@@ -3,13 +3,12 @@ export class SignupDto {
   @IsString({})
   @IsEmail({}, { message: 'email sai' })
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
-
+  password!: string;
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 }

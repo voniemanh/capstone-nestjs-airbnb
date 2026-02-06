@@ -4,11 +4,11 @@ export class SigninDto {
   @IsString({})
   @IsEmail({}, { message: 'email sai' })
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
   //   IsOptional: nếu mà người dùng gửi lên thì mới kiểm tra, còn không gửi thì không kiểm tra
   //   @IsOptional()
-  password: string;
+  password!: string;
 }

@@ -4,18 +4,18 @@ import { Type } from 'class-transformer';
 export class CreateBookingDto {
   @Type(() => Number)
   @IsInt()
-  roomId: number;
+  roomId!: number;
 
   @Type(() => Date)
   @IsDate()
-  checkIn: Date;
+  checkIn!: Date;
 
   @Type(() => Date)
   @IsDate()
-  checkOut: Date;
+  checkOut!: Date;
 
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  guestCount: number;
+  guestCount!: number;
 }

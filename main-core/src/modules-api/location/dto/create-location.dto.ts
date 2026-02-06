@@ -3,15 +3,15 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateLocationDto {
   @IsString()
   @IsNotEmpty({ message: 'Tên location không được để trống' })
-  name: string;
+  name!: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Thành phố không được để trống' })
-  city: string;
+  city!: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Quốc gia không được để trống' })
-  country: string;
+  country!: string;
 
   @IsString()
   @IsOptional()

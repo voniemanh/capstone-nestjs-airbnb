@@ -2,7 +2,7 @@ import { IsInt, IsString } from 'class-validator';
 
 export class CreateCommentDto {
   @IsInt()
-  roomId: number;
+  roomId!: number;
   @IsString()
-  content: string;
+  content!: string;
 }

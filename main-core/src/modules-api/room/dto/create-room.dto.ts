@@ -10,12 +10,11 @@ import {
 export class CreateRoomDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsInt()
   @Min(1)
-  locationId: number;
-
+  locationId!: number;
   @IsOptional()
   @IsInt()
   @Min(1)

@@ -10,19 +10,18 @@ import {
 
 export class CreateUserDto {
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string;
-
+  password!: string;
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsString()
   @IsIn(['ADMIN', 'USER']) // chỉ cho phép 2 role
-  role: string;
+  role!: string;
 
   @IsOptional()
   @IsDateString()
