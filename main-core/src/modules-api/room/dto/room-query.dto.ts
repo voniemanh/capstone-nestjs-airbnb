@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsOptional } from 'class-validator';
+import { IsBoolean, IsOptional } from 'class-validator';
 import { PagingDto } from 'src/common/dto/paging.dto';
 
 export class RoomQueryDto extends PagingDto {
@@ -41,34 +41,34 @@ export class RoomQueryDto extends PagingDto {
 
   // ===== BOOLEAN =====
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasIron?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasTV?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasAC?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasWifi?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasKitchen?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasParking?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasPool?: boolean;
 
   @IsOptional()
-  @Type(() => Boolean)
+  @IsBoolean()
   hasHeater?: boolean;
 }

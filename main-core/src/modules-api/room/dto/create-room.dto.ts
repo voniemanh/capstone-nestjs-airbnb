@@ -6,30 +6,37 @@ import {
   IsString,
   Min,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateRoomDto {
   @IsString()
   @IsNotEmpty()
   name!: string;
 
+  @Type(() => Number)
   @IsInt()
   @Min(1)
   locationId!: number;
+
+  @Type(() => Number)
   @IsOptional()
   @IsInt()
   @Min(1)
   guestCount?: number;
 
+  @Type(() => Number)
   @IsOptional()
   @IsInt()
   @Min(0)
   bedroomCount?: number;
 
+  @Type(() => Number)
   @IsOptional()
   @IsInt()
   @Min(0)
   bedCount?: number;
 
+  @Type(() => Number)
   @IsOptional()
   @IsInt()
   @Min(0)
@@ -39,6 +46,7 @@ export class CreateRoomDto {
   @IsString()
   description?: string;
 
+  @Type(() => Number)
   @IsOptional()
   @IsInt()
   @Min(0)

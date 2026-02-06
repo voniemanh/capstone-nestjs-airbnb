@@ -5,9 +5,6 @@ import { BookingStatus } from 'src/common/enum/booking-status.enum';
 
 export class BookingQueryDto extends PagingDto {
   @IsOptional()
-  note?: string;
-
-  @IsOptional()
   @Type(() => Number)
   roomId?: number;
 

@@ -1,12 +1,12 @@
 import {
   IsDate,
-  IsDateString,
   IsEmail,
-  IsIn,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
+import { UserRole } from 'src/common/enum/user-role.enum';
 
 export class CreateUserDto {
   @IsEmail()
@@ -19,11 +19,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   name!: string;
 
-  @IsString()
-  @IsIn(['ADMIN', 'USER']) // chỉ cho phép 2 role
-  role!: string;
+  @IsEnum(UserRole)
+  role?: UserRole;
 
   @IsOptional()
-  @IsDateString()
+  @IsDate()
   birthday?: string;
 }
