@@ -17,7 +17,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Chu Thi B\",\n  \"email\": \"chub@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0909123457\",\n  \"birthday\": \"1999-05-20\",\n  \"gender\": \"female\"\n}\n",
+              "raw": "{\n  \"name\": \"Tes Ter\",\n  \"email\": \"tes.ter@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"08012345678\",\n  \"birthday\": \"1990-01-01\",\n  \"gender\": \"male\"\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -26,8 +26,13 @@
             },
             "url": {
               "raw": "{{domain}}/auth/signup",
-              "host": ["{{domain}}"],
-              "path": ["auth", "signup"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
             }
           },
           "response": []
@@ -56,7 +61,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"lee1@example.com\",\n  \"password\": \"123456\"\n}",
+              "raw": "{\n  \"email\": \"nguyenvana@example.com\",\n  \"password\": \"123456\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,8 +70,13 @@
             },
             "url": {
               "raw": "{{domain}}/auth/signin",
-              "host": ["{{domain}}"],
-              "path": ["auth", "signin"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "auth",
+                "signin"
+              ]
             }
           },
           "response": []
@@ -112,8 +122,13 @@
             },
             "url": {
               "raw": "{{domain}}/auth/refresh-token",
-              "host": ["{{domain}}"],
-              "path": ["auth", "refresh-token"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
             }
           },
           "response": []
@@ -125,8 +140,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/auth/google",
-              "host": ["{{domain}}"],
-              "path": ["auth", "google"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "auth",
+                "google"
+              ]
             }
           },
           "response": []
@@ -138,8 +158,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/auth/google-callback",
-              "host": ["{{domain}}"],
-              "path": ["auth", "google-callback"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "auth",
+                "google-callback"
+              ]
             }
           },
           "response": []
@@ -166,8 +191,20 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/users",
-              "host": ["{{domain}}"],
-              "path": ["users"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "vana",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
             }
           },
           "response": []
@@ -189,7 +226,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Tran Van F\",\n  \"email\": \"tranf@gmail.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0911222111\",\n  \"birthday\": \"1999-01-01\",\n  \"gender\": \"MALE\",\n  \"role\": \"USER\"\n}\n",
+              "raw": "{\n  \"name\": \"Nguyen Thi B\",\n  \"email\": \"nguyenb@example.com\",\n  \"password\": \"123456\",\n  \"phone\": \"0911222111\",\n  \"birthday\": \"1999-01-01\",\n  \"gender\": \"FEMALE\",\n  \"role\": \"USER\"\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -198,8 +235,12 @@
             },
             "url": {
               "raw": "{{domain}}/users",
-              "host": ["{{domain}}"],
-              "path": ["users"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users"
+              ]
             }
           },
           "response": []
@@ -221,8 +262,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/users/me",
-              "host": ["{{domain}}"],
-              "path": ["users", "me"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
             }
           },
           "response": []
@@ -243,15 +289,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/users/id/2",
-              "host": ["{{domain}}"],
-              "path": ["users", "id", "2"],
-              "query": [
-                {
-                  "key": "id",
-                  "value": "2",
-                  "disabled": true
-                }
+              "raw": "{{domain}}/users/id/3",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "id",
+                "3"
               ]
             }
           },
@@ -274,7 +319,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Super Admin so handsome\",\n  \"phone\": \"0988777666\",\n  \"birthday\": \"1998-02-02\",\n  \"gender\": \"MALE\",\n  \"avatar\": \"https://cdn.avatar.com/b.png\"\n}",
+              "raw": "{\n  \"name\": \"Super Admin so handsome\",\n  \"phone\": \"0988777666\",\n  \"birthday\": \"1998-02-02\",\n  \"gender\": \"MALE\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -283,8 +328,13 @@
             },
             "url": {
               "raw": "{{domain}}/users/me",
-              "host": ["{{domain}}"],
-              "path": ["users", "me"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
             }
           },
           "response": []
@@ -305,9 +355,14 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{domain}}/users/2",
-              "host": ["{{domain}}"],
-              "path": ["users", "2"]
+              "raw": "{{domain}}/users/3",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "3"
+              ]
             }
           },
           "response": []
@@ -328,13 +383,18 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/users/search?keyword=d",
-              "host": ["{{domain}}"],
-              "path": ["users", "search"],
+              "raw": "{{domain}}/users/search?keyword=van",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "search"
+              ],
               "query": [
                 {
                   "key": "keyword",
-                  "value": "d"
+                  "value": "van"
                 }
               ]
             }
@@ -358,8 +418,13 @@
             },
             "url": {
               "raw": "{{domain}}/users/upload-avatar",
-              "host": ["{{domain}}"],
-              "path": ["users", "upload-avatar"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "users",
+                "upload-avatar"
+              ]
             }
           },
           "response": []
@@ -375,13 +440,29 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/rooms?price=120",
-              "host": ["{{domain}}"],
-              "path": ["rooms"],
+              "raw": "{{domain}}/rooms",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms"
+              ],
               "query": [
                 {
                   "key": "price",
-                  "value": "120"
+                  "value": "150",
+                  "disabled": true
+                },
+                {
+                  "key": "bedCount",
+                  "value": "2",
+                  "disabled": true
+                },
+                {
+                  "key": "guestCount",
+                  "value": "3",
+                  "type": "text",
+                  "disabled": true
                 }
               ]
             }
@@ -405,7 +486,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Cheap Apartment A\",\n  \"guestCount\": 3,\n  \"bedroomCount\": 2,\n  \"bedCount\": 2,\n  \"bathroomCount\": 1,\n  \"description\": \"Cheap room\",\n  \"price\": 200,\n  \"locationId\": 1\n}\n",
+              "raw": "{\n  \"name\": \"NguyenB Apartment A\",\n  \"guestCount\": 2,\n  \"bedroomCount\": 1,\n  \"bedCount\": 1,\n  \"bathroomCount\": 1,\n  \"description\": \"test room\",\n  \"price\": 220,\n  \"locationId\": 3\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -414,8 +495,12 @@
             },
             "url": {
               "raw": "{{domain}}/rooms",
-              "host": ["{{domain}}"],
-              "path": ["rooms"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms"
+              ]
             }
           },
           "response": []
@@ -426,9 +511,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/rooms/3",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "3"]
+              "raw": "{{domain}}/rooms/2",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "2"
+              ]
             }
           },
           "response": []
@@ -458,9 +548,14 @@
               }
             },
             "url": {
-              "raw": "{{domain}}/rooms/2",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "2"]
+              "raw": "{{domain}}/rooms/3",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "3"
+              ]
             }
           },
           "response": []
@@ -482,8 +577,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/rooms/4",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "4"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "4"
+              ]
             }
           },
           "response": []
@@ -495,8 +595,14 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/rooms/by-location/1",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "by-location", "1"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "by-location",
+                "1"
+              ]
             }
           },
           "response": []
@@ -527,9 +633,15 @@
               ]
             },
             "url": {
-              "raw": "{{domain}}/rooms/4/upload-image",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "4", "upload-image"]
+              "raw": "{{domain}}/rooms/3/upload-image",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "3",
+                "upload-image"
+              ]
             }
           },
           "response": []
@@ -540,13 +652,19 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/rooms/search/?keyword=cheap",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "search", ""],
+              "raw": "{{domain}}/rooms/search/?keyword=test",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "search",
+                ""
+              ],
               "query": [
                 {
                   "key": "keyword",
-                  "value": "cheap"
+                  "value": "test"
                 }
               ]
             }
@@ -560,12 +678,18 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/rooms/created/:userId",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "created", ":userId"],
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "created",
+                ":userId"
+              ],
               "variable": [
                 {
                   "key": "userId",
-                  "value": "2"
+                  "value": "4"
                 }
               ]
             }
@@ -579,8 +703,14 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/rooms/saved/:userId",
-              "host": ["{{domain}}"],
-              "path": ["rooms", "saved", ":userId"],
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "rooms",
+                "saved",
+                ":userId"
+              ],
               "variable": [
                 {
                   "key": "userId",
@@ -602,13 +732,28 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/locations?city=Ho Chi Minh",
-              "host": ["{{domain}}"],
-              "path": ["locations"],
+              "raw": "{{domain}}/locations",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations"
+              ],
               "query": [
                 {
                   "key": "city",
-                  "value": "Ho Chi Minh"
+                  "value": "Tokyo",
+                  "disabled": true
+                },
+                {
+                  "key": "country",
+                  "value": "Viet Nam",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "cheap",
+                  "disabled": true
                 }
               ]
             }
@@ -622,7 +767,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Shibuya\",\n  \"city\": \"Tokyo\",\n  \"country\": \"Japan\"\n}\n",
+              "raw": "{\n  \"name\": \"District 2\",\n  \"city\": \"Ho Chi Minh\",\n  \"country\": \"Viet Nam\"\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -631,8 +776,12 @@
             },
             "url": {
               "raw": "{{domain}}/locations",
-              "host": ["{{domain}}"],
-              "path": ["locations"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations"
+              ]
             }
           },
           "response": []
@@ -644,8 +793,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/locations/4",
-              "host": ["{{domain}}"],
-              "path": ["locations", "4"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations",
+                "4"
+              ]
             }
           },
           "response": []
@@ -676,8 +830,13 @@
             },
             "url": {
               "raw": "{{domain}}/locations/2",
-              "host": ["{{domain}}"],
-              "path": ["locations", "2"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations",
+                "2"
+              ]
             }
           },
           "response": []
@@ -699,8 +858,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/locations/2",
-              "host": ["{{domain}}"],
-              "path": ["locations", "2"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations",
+                "2"
+              ]
             }
           },
           "response": []
@@ -731,9 +895,15 @@
               ]
             },
             "url": {
-              "raw": "{{domain}}/locations/2/upload-location-image",
-              "host": ["{{domain}}"],
-              "path": ["locations", "2", "upload-location-image"]
+              "raw": "{{domain}}/locations/1/upload-location-image",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "locations",
+                "1",
+                "upload-location-image"
+              ]
             }
           },
           "response": []
@@ -760,8 +930,12 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings",
-              "host": ["{{domain}}"],
-              "path": ["bookings"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings"
+              ]
             }
           },
           "response": []
@@ -783,7 +957,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"roomId\": 3,\n  \"checkIn\": \"2026-06-01\",\n  \"checkOut\": \"2026-06-03\",\n  \"guestCount\": 2\n}",
+              "raw": "{\n  \"roomId\": 3,\n  \"checkIn\": \"2026-05-01\",\n  \"checkOut\": \"2026-05-03\",\n  \"guestCount\": 2\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -792,8 +966,12 @@
             },
             "url": {
               "raw": "{{domain}}/bookings",
-              "host": ["{{domain}}"],
-              "path": ["bookings"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings"
+              ]
             }
           },
           "response": []
@@ -814,9 +992,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/bookings/by-booking/1",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "by-booking", "1"]
+              "raw": "{{domain}}/bookings/by-booking/2",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "by-booking",
+                "2"
+              ]
             }
           },
           "response": []
@@ -846,9 +1030,15 @@
               }
             },
             "url": {
-              "raw": "{{domain}}/bookings/4/admin-cancel",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "4", "admin-cancel"]
+              "raw": "{{domain}}/bookings/1/admin-cancel",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "1",
+                "admin-cancel"
+              ]
             }
           },
           "response": []
@@ -870,8 +1060,14 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/1/cancel",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "1", "cancel"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "1",
+                "cancel"
+              ]
             }
           },
           "response": []
@@ -893,8 +1089,14 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/by-user/1",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "by-user", "1"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "by-user",
+                "1"
+              ]
             }
           },
           "response": []
@@ -916,8 +1118,15 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/me/by-booking/5",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "me", "by-booking", "5"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "me",
+                "by-booking",
+                "5"
+              ]
             }
           },
           "response": []
@@ -939,8 +1148,13 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/me",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "me"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "me"
+              ]
             }
           },
           "response": []
@@ -962,8 +1176,14 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/availability/2?from=\"2026-02-02\"&to=\"2026-10-22\"",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "availability", "2"],
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "availability",
+                "2"
+              ],
               "query": [
                 {
                   "key": "from",
@@ -995,8 +1215,15 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/bookings/calendar/2/?year=2026&month=2",
-              "host": ["{{domain}}"],
-              "path": ["bookings", "calendar", "2", ""],
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "bookings",
+                "calendar",
+                "2",
+                ""
+              ],
               "query": [
                 {
                   "key": "year",
@@ -1022,9 +1249,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/comments/by-room/2",
-              "host": ["{{domain}}"],
-              "path": ["comments", "by-room", "2"]
+              "raw": "{{domain}}/comments/by-room/3",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "comments",
+                "by-room",
+                "3"
+              ]
             }
           },
           "response": []
@@ -1045,9 +1278,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/comments/by-user/3",
-              "host": ["{{domain}}"],
-              "path": ["comments", "by-user", "3"]
+              "raw": "{{domain}}/comments/by-user/5",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "comments",
+                "by-user",
+                "5"
+              ]
             }
           },
           "response": []
@@ -1069,7 +1308,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"roomId\": 2,\n  \"content\": \"Phòng sạch, chủ dễ thương 🥰\"\n}\n",
+              "raw": "{\n  \"roomId\": 3,\n  \"content\": \"Phòng sạch, chủ dễ thương 🥰\"\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1078,8 +1317,12 @@
             },
             "url": {
               "raw": "{{domain}}/comments",
-              "host": ["{{domain}}"],
-              "path": ["comments"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "comments"
+              ]
             }
           },
           "response": []
@@ -1110,8 +1353,13 @@
             },
             "url": {
               "raw": "{{domain}}/comments/1",
-              "host": ["{{domain}}"],
-              "path": ["comments", "1"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "comments",
+                "1"
+              ]
             }
           },
           "response": []
@@ -1132,9 +1380,14 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{domain}}/comments/1",
-              "host": ["{{domain}}"],
-              "path": ["comments", "1"]
+              "raw": "{{domain}}/comments/2",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "comments",
+                "2"
+              ]
             }
           },
           "response": []
@@ -1161,8 +1414,12 @@
             "header": [],
             "url": {
               "raw": "{{domain}}/saved-room",
-              "host": ["{{domain}}"],
-              "path": ["saved-room"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "saved-room"
+              ]
             }
           },
           "response": []
@@ -1192,9 +1449,15 @@
               }
             },
             "url": {
-              "raw": "{{domain}}/saved-room/save/2",
-              "host": ["{{domain}}"],
-              "path": ["saved-room", "save", "2"]
+              "raw": "{{domain}}/saved-room/save/3",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "saved-room",
+                "save",
+                "3"
+              ]
             }
           },
           "response": []
@@ -1225,8 +1488,14 @@
             },
             "url": {
               "raw": "{{domain}}/saved-room/unsave/3",
-              "host": ["{{domain}}"],
-              "path": ["saved-room", "unsave", "3"]
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "saved-room",
+                "unsave",
+                "3"
+              ]
             }
           },
           "response": []
@@ -1237,18 +1506,32 @@
       "name": "SEARCH",
       "item": [
         {
-          "name": "Search APP",
+          "name": "Search App",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{refreshToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{domain}}/search-app?text=cheap",
-              "host": ["{{domain}}"],
-              "path": ["search-app"],
+              "raw": "{{domain}}/search-app?text=admin",
+              "host": [
+                "{{domain}}"
+              ],
+              "path": [
+                "search-app"
+              ],
               "query": [
                 {
                   "key": "text",
-                  "value": "cheap"
+                  "value": "admin"
                 }
               ]
             }

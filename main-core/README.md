@@ -1,98 +1,167 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🏠 ROOM BOOKING API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API cho ứng dụng **đặt phòng / thuê phòng**, cho phép người dùng:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Đăng ký, đăng nhập (JWT & Google)
+- Quản lý người dùng (admin)
+- Quản lý phòng, địa điểm
+- Đặt phòng & kiểm tra lịch trống
+- Bình luận, lưu phòng yêu thích
+- Upload ảnh (avatar, room, location)
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## ⚙️ Công nghệ sử dụng
 
-## Project setup
+- Node.js, Nestjs
+- JWT Authentication (Access / Refresh Token)
+- MySQL
+- Multer (upload file)
+- Google OAuth
+- Redis
+- RabbitMQ
+- Elastic Search
 
-```bash
-$ npm install
+---
+
+## 🔐 Xác thực & Phân quyền
+
+Hệ thống sử dụng **JWT** cho các API cần đăng nhập.
+
+### Access Token
+
+Gửi kèm header:
+
+```http
+Authorization: Bearer <accessToken>
 ```
 
-## Compile and run the project
+### Phân quyền
 
-```bash
-# development
-$ npm run start
+- **Public**: không cần đăng nhập
+- **JWT**: người dùng đã đăng nhập
+- **OWNER**: chủ sở hữu tài nguyên
+- **ADMIN**: quyền quản trị hệ thống
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 📌 Danh sách API chính
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+### 🔑 Authentication
 
-# e2e tests
-$ npm run test:e2e
+| Method | Endpoint                | Mô tả                |
+| ------ | ----------------------- | -------------------- |
+| POST   | `/auth/signup`          | Đăng ký              |
+| POST   | `/auth/signin`          | Đăng nhập (trả JWT)  |
+| POST   | `/auth/refresh-token`   | Cấp lại access token |
+| GET    | `/auth/google`          | Đăng nhập Google     |
+| GET    | `/auth/google-callback` | Google callback      |
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+### 👤 User
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+| Method | Endpoint                 | Mô tả                      |
+| ------ | ------------------------ | -------------------------- |
+| GET    | `/users`                 | Lấy danh sách user (ADMIN) |
+| GET    | `/users/me`              | Thông tin user hiện tại    |
+| POST   | `/users`                 | Tạo user mới (ADMIN)       |
+| DELETE | `/users/{id}`            | Xoá user (ADMIN)           |
+| GET    | `/users/{id}`            | Lấy user theo id           |
+| PATCH  | `/users/{id}`            | Cập nhật user              |
+| GET    | `/users/search?keyword=` | Tìm kiếm user (ADMIN)      |
+| POST   | `/users/upload-avatar`   | Upload avatar              |
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+---
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+### 🏠 Room
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+| Method | Endpoint                          | Mô tả                        |
+| ------ | --------------------------------- | ---------------------------- |
+| GET    | `/rooms`                          | Danh sách phòng (Public)     |
+| GET    | `/rooms/by-location/{locationId}` | Phòng theo địa điểm          |
+| GET    | `/rooms/{id}`                     | Chi tiết phòng               |
+| GET    | `/rooms/search?keyword=`          | Tìm kiếm phòng               |
+| POST   | `/rooms`                          | Tạo phòng (OWNER)            |
+| PATCH  | `/rooms/{id}`                     | Cập nhật phòng (OWNER)       |
+| POST   | `/rooms/upload-image`             | Upload ảnh phòng (OWNER)     |
+| GET    | `/rooms/created/{userId}`         | Phòng đã tạo (OWNER / ADMIN) |
+| GET    | `/rooms/saved/{userId}`           | Phòng đã lưu (OWNER / ADMIN) |
+| DELETE | `/rooms/{id}`                     | Xoá phòng (OWNER / ADMIN)    |
 
-## Resources
+---
 
-Check out a few resources that may come in handy when working with NestJS:
+### 📍 Location
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Method | Endpoint                  | Mô tả                                       |
+| ------ | ------------------------- | ------------------------------------------- |
+| GET    | `/locations`              | Danh sách location (filter: country, city…) |
+| POST   | `/locations`              | Tạo location (ADMIN)                        |
+| GET    | `/locations/{id}`         | Chi tiết location                           |
+| PATCH  | `/locations/{id}`         | Cập nhật location (ADMIN)                   |
+| DELETE | `/locations/{id}`         | Xoá location (ADMIN)                        |
+| POST   | `/locations/upload-image` | Upload ảnh location (ADMIN)                 |
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 📅 Booking
 
-## Stay in touch
+| Method | Endpoint                                    | Mô tả                             |
+| ------ | ------------------------------------------- | --------------------------------- |
+| GET    | `/bookings`                                 | Danh sách booking (ADMIN, filter) |
+| GET    | `/bookings/by-booking/{id}`                 | Chi tiết booking (OWNER / ADMIN)  |
+| GET    | `/bookings/by-user/{userId}`                | Booking theo user (ADMIN)         |
+| GET    | `/bookings/me`                              | Booking của tôi (OWNER, filter)   |
+| GET    | `/bookings/availability/{roomId}?from=&to=` | Kiểm tra lịch trống (Public)      |
+| GET    | `/bookings/calendar/{roomId}`               | Lịch booking phòng                |
+| GET    | `/bookings/me/by-booking/{id}`              | Chi tiết booking của tôi          |
+| POST   | `/bookings`                                 | Tạo booking (OWNER)               |
+| PATCH  | `/bookings/{id}/cancel`                     | Huỷ booking (OWNER)               |
+| PATCH  | `/bookings/{id}/admin-cancel`               | Huỷ booking (ADMIN)               |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+### 💬 Comment
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Method | Endpoint                     | Mô tả                             |
+| ------ | ---------------------------- | --------------------------------- |
+| GET    | `/comments/by-room/{roomId}` | Comment theo phòng (Public)       |
+| GET    | `/comments/by-user/{userId}` | Comment theo user (OWNER / ADMIN) |
+| POST   | `/comments`                  | Tạo comment                       |
+| PATCH  | `/comments/{id}`             | Cập nhật comment                  |
+| DELETE | `/comments/{id}`             | Xoá comment                       |
+
+---
+
+### ⭐ Saved Rooms
+
+| Method | Endpoint             | Mô tả                  |
+| ------ | -------------------- | ---------------------- |
+| GET    | `/saved-room`        | Danh sách phòng đã lưu |
+| POST   | `/saved-room/save`   | Lưu phòng              |
+| DELETE | `/saved-room/unsave` | Bỏ lưu phòng           |
+
+---
+
+### 🔍 Search
+
+| Method | Endpoint            | Mô tả             |
+| ------ | ------------------- | ----------------- |
+| GET    | `/search-app?text=` | Tìm kiếm tổng hợp |
+
+---
+
+## ⚠️ Lưu ý
+
+- Các API **ngoại trừ Public** đều yêu cầu access token hợp lệ
+- Có kiểm tra **role & ownership** trước khi thao tác
+- API phục vụ mục đích **học tập / demo / capstone**
+
+---
+
+## 👨‍🎓 Sinh viên thực hiện
+
+**voniemanh**
+Capstone: **NestJS – Cuối khoá**
