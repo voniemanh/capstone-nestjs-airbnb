@@ -51,6 +51,7 @@ export class BookingService {
       data: { bookingId, action, performedBy },
     });
   };
+
   //Validate
   private validateBookingDates(checkIn: Date, checkOut: Date) {
     if (dayjs(checkIn).isAfter(dayjs(checkOut))) {
@@ -70,6 +71,13 @@ export class BookingService {
     }
     return room;
   }
+
+  private checkEmptyBookingList(bookings: any[]) {
+    if (bookings.length === 0) {
+      throw new NotFoundException('Không tìm thấy booking');
+    }
+  }
+
   private async checkBookingExist(userId: number) {
     const bookings = await this.prisma.bookings.findMany({
       where: {
@@ -78,9 +86,7 @@ export class BookingService {
       },
     });
 
-    if (!bookings.length) {
-      throw new NotFoundException('Không tìm thấy booking');
-    }
+    this.checkEmptyBookingList(bookings);
 
     return bookings;
   }
@@ -127,12 +133,8 @@ export class BookingService {
     return total;
   }
 
-  // ---------------------------
   // CRUD
-  // ---------------------------
-  /**
-   * Tạo booking với Redis lock + transaction
-   */
+  //Tạo booking với Redis lock + transaction
   async createBooking(userId: number, dto: CreateBookingDto) {
     // kiểm tra room tồn tại
     await this.checkRoomExists(dto.roomId);
@@ -200,9 +202,7 @@ export class BookingService {
     ); // 20s lock
   }
 
-  /**
-   * Cancel booking (owner)
-   */
+  // Cancel booking (owner)
   async cancelBooking(userId: number, bookingId: number) {
     const booking = await this.prisma.bookings.findUnique({
       where: { id: bookingId },
@@ -231,9 +231,7 @@ export class BookingService {
     });
   }
 
-  /**
-   * Admin cancel
-   */
+  //Admin cancel
   async adminCancelBooking(adminId: number, bookingId: number) {
     const booking = await this.prisma.bookings.findUnique({
       where: { id: bookingId },
@@ -256,9 +254,7 @@ export class BookingService {
     });
   }
 
-  /**
-   * Get bookings availability for a room
-   */
+  // Get bookings availability for a room
   async getAvailability(roomId: number, from: Date, to: Date) {
     // 1. Lấy các booking overlap
     const bookings = await this.prisma.bookings.findMany({
@@ -308,9 +304,7 @@ export class BookingService {
     };
   }
 
-  /**
-   * Get bookings for a user
-   */
+  // Get bookings for a user
   async getMyBookings(userId: number, query: BookingQueryDto) {
     await this.checkBookingExist(userId);
     const result = await buildQueryPrisma({
@@ -325,15 +319,14 @@ export class BookingService {
       },
       orderBy: { createdAt: 'asc' },
     });
+    this.checkEmptyBookingList(result.data);
 
     return {
       message: 'Lấy danh sách booking thành công',
       ...result,
     };
   }
-  /**
-   * Get bookings for admin
-   */
+  // Get bookings for admin
   async getAllBookings(query: BookingQueryDto) {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.bookings,
@@ -346,6 +339,8 @@ export class BookingService {
       },
       orderBy: { createdAt: 'asc' },
     });
+    console.log(result.data);
+    this.checkEmptyBookingList(result.data);
 
     return {
       message: 'Lấy danh sách booking thành công',
@@ -363,6 +358,7 @@ export class BookingService {
       data: booking,
     };
   }
+
   async getBookingsByUser(userId: number, query: BookingQueryDto) {
     await this.checkBookingExist(userId);
     const result = await buildQueryPrisma({
@@ -375,6 +371,8 @@ export class BookingService {
       },
       orderBy: { createdAt: 'asc' },
     });
+
+    this.checkEmptyBookingList(result.data);
 
     return {
       message: 'Lấy danh sách booking của user thành công',
@@ -390,11 +388,8 @@ export class BookingService {
       where: this.bookingOverlapWhere(roomId, start, end),
       orderBy: { checkIn: 'asc' },
     });
-    if (bookings.length === 0) {
-      throw new NotFoundException(
-        'Không tìm thấy booking trong tháng được chỉ định',
-      );
-    }
+
+    this.checkEmptyBookingList(bookings);
 
     return {
       message: 'Lấy danh sách booking cho lịch thành công',

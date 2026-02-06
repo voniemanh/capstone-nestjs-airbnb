@@ -20,7 +20,9 @@ export class LocationService {
     private prisma: PrismaService,
     private cloudinaryService: CloudinaryService,
   ) {}
-  private async checkExist(id: number) {
+
+  //Validation
+  private async checkLocationExist(id: number) {
     const location = await this.prisma.locations.findUnique({
       where: { id },
     });
@@ -31,6 +33,14 @@ export class LocationService {
 
     return location;
   }
+
+  private checkEmptyLocationList(locations: any[]) {
+    if (locations.length === 0) {
+      throw new NotFoundException('Không tìm thấy location nào');
+    }
+  }
+
+  //config
 
   private locationSelect = {
     id: true,
@@ -74,6 +84,8 @@ export class LocationService {
       orderBy: { createdAt: 'asc' },
     });
 
+    this.checkEmptyLocationList(result.data);
+
     return {
       message: 'Lấy danh sách location thành công',
       ...result,
@@ -82,7 +94,7 @@ export class LocationService {
 
   async getLocationById(id: number) {
     const location = await this.prisma.locations.findUnique({
-      where: { id },
+      where: { id, isDeleted: false },
       select: this.locationSelect,
     });
 
@@ -97,7 +109,7 @@ export class LocationService {
   }
 
   async updateLocation(id: number, data: UpdateLocationDto) {
-    await this.checkExist(id);
+    await this.checkLocationExist(id);
 
     const updatedLocation = await this.prisma.locations.update({
       where: { id },
@@ -112,7 +124,7 @@ export class LocationService {
   }
 
   async removeLocation(id: number) {
-    await this.checkExist(id);
+    await this.checkLocationExist(id);
 
     const deletedLocation = await this.prisma.locations.update({
       where: { id },

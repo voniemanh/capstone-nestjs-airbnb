@@ -32,6 +32,13 @@ export class UserService {
     createdAt: true,
   };
 
+  //validation
+  private checkEmptyUserList(users: any[]) {
+    if (users.length === 0) {
+      throw new NotFoundException('Không tìm thấy user nào');
+    }
+  }
+
   async onModuleInit() {
     // Ensure that at least one admin user exists
     const adminExists = await this.prisma.users.findFirst({
@@ -62,6 +69,7 @@ export class UserService {
       orderBy: { createdAt: 'asc' },
       select: this.userSelect,
     });
+    this.checkEmptyUserList(result.data);
 
     return {
       message: 'Lấy danh sách users thành công',
@@ -169,6 +177,7 @@ export class UserService {
       },
       select: this.userSelect,
     });
+    this.checkEmptyUserList(result);
     return {
       message: 'Tìm kiếm user thành công',
       data: result,

@@ -71,6 +71,12 @@ export class RoomService {
     }
   }
 
+  private checkEmptyRoomList(rooms: any[]) {
+    if (rooms.length === 0) {
+      throw new NotFoundException('Không tìm thấy room nào');
+    }
+  }
+
   // ================= PUBLIC =================
   async getAllRooms(query: RoomQueryDto) {
     const result = await buildQueryPrisma({
@@ -85,6 +91,9 @@ export class RoomService {
         Comments: true,
       },
     });
+
+    this.checkEmptyRoomList(result.data);
+
     return {
       message: 'Lấy danh sách rooms thành công',
       ...result,
@@ -106,6 +115,9 @@ export class RoomService {
         Comments: true,
       },
     });
+
+    this.checkEmptyRoomList(result.data);
+
     return {
       message: 'Lấy danh sách rooms theo location thành công',
       ...result,
@@ -141,6 +153,7 @@ export class RoomService {
         ],
       },
     });
+    this.checkEmptyRoomList(rooms);
     return {
       message: 'Tìm kiếm rooms thành công',
       data: rooms,
@@ -254,6 +267,7 @@ export class RoomService {
   }
 
   async getRoomsCreatedByUser(userId: number, user: any) {
+    this.checkOwnerOrAdmin(userId, user);
     const rooms = await this.prisma.rooms.findMany({
       where: {
         userId,
@@ -264,7 +278,7 @@ export class RoomService {
         Comments: true,
       },
     });
-    this.checkOwnerOrAdmin(userId, user);
+    this.checkEmptyRoomList(rooms);
     return {
       message: 'Lấy danh sách room do user tạo thành công',
       data: rooms,
@@ -272,6 +286,7 @@ export class RoomService {
   }
 
   async getRoomsSavedByUser(userId: number, user: any) {
+    this.checkOwnerOrAdmin(userId, user);
     const rooms = await this.prisma.savedRooms.findMany({
       where: {
         userId,
@@ -282,7 +297,7 @@ export class RoomService {
         Rooms: true,
       },
     });
-    this.checkOwnerOrAdmin(userId, user);
+    this.checkEmptyRoomList(rooms);
     return {
       message: 'Lấy danh sách room đã lưu của user thành công',
       data: rooms,

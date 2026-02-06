@@ -20,6 +20,7 @@ export class SearchAppService implements OnModuleInit {
   async searchApp(text: string) {
     const result = await this.elasticsearchService.search({
       index: ['users', 'rooms', 'locations'],
+      ignore_unavailable: true,
       query: {
         multi_match: {
           query: text,

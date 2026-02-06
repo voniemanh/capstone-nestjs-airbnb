@@ -52,6 +52,12 @@ export class CommentService {
     return comment;
   }
 
+  private checkEmtyCommentList(comments: any[]) {
+    if (comments.length === 0) {
+      throw new NotFoundException('Không tìm thấy comment nào');
+    }
+  }
+
   // ================= PUBLIC =================
   async createComment(body: CreateCommentDto, userId: number) {
     const { roomId, content } = body;
@@ -91,6 +97,8 @@ export class CommentService {
       orderBy: { createdAt: 'asc' },
     });
 
+    this.checkEmtyCommentList(result.data);
+
     return {
       message: 'Lấy danh sách comment theo roomId thành công',
       ...result,
@@ -109,6 +117,8 @@ export class CommentService {
       },
       orderBy: { createdAt: 'asc' },
     });
+
+    this.checkEmtyCommentList(result.data);
 
     return {
       message: 'Lấy danh sách comment theo userId thành công',
