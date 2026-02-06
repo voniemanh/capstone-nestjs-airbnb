@@ -6,7 +6,7 @@ Backend API cho ứng dụng **đặt phòng / thuê phòng**, cho phép ngườ
 - Quản lý người dùng (admin)
 - Quản lý phòng, địa điểm
 - Đặt phòng & kiểm tra lịch trống
-- Chức năng gửi mail thông báo khi đặt phòng
+- Gửi mail thông báo khi đặt phòng
 - Bình luận, lưu phòng yêu thích
 - Upload ảnh (avatar, room, location)
 
