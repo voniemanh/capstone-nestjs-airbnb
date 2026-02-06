@@ -82,7 +82,7 @@ export class CommentService {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.comments,
       pagingQuery: query,
-      baseWhere: { roomId },
+      baseWhere: { roomId, isDeleted: false },
       include: {
         Users: {
           select: this.userSelect,
@@ -101,7 +101,7 @@ export class CommentService {
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.comments,
       pagingQuery: query,
-      baseWhere: { userId },
+      baseWhere: { userId, isDeleted: false },
       include: {
         Users: {
           select: this.userSelect,

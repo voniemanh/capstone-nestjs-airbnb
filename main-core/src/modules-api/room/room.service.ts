@@ -61,6 +61,16 @@ export class RoomService {
     }
   }
 
+  private async checkLocationExist(locationId: number) {
+    const location = await this.prisma.locations.findUnique({
+      where: { id: locationId, isDeleted: false },
+    });
+
+    if (!location) {
+      throw new NotFoundException('Location không tồn tại');
+    }
+  }
+
   // ================= PUBLIC =================
   async getAllRooms(query: RoomQueryDto) {
     const result = await buildQueryPrisma({
@@ -68,6 +78,7 @@ export class RoomService {
       pagingQuery: query,
       filters: query,
       fieldOptions: this.fieldOptions,
+      baseWhere: { isDeleted: false },
       orderBy: { createdAt: 'asc' },
       include: {
         Users: { select: this.userSelect },
@@ -81,12 +92,14 @@ export class RoomService {
   }
 
   async getAllRoomsByLocation(locationId: number, query: RoomQueryDto) {
+    await this.checkLocationExist(locationId);
+
     const result = await buildQueryPrisma({
       prismaModel: this.prisma.rooms,
       pagingQuery: query,
       filters: query,
       fieldOptions: this.fieldOptions,
-      baseWhere: { locationId },
+      baseWhere: { locationId, isDeleted: false },
       orderBy: { createdAt: 'asc' },
       include: {
         Users: { select: this.userSelect },
@@ -149,6 +162,8 @@ export class RoomService {
     if (user.role === 'ADMIN') {
       throw new ForbiddenException('Admin không được tạo room');
     }
+
+    await this.checkLocationExist(body.locationId);
 
     const createdRoom = await this.prisma.rooms.create({
       data: {

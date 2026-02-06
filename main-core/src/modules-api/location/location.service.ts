@@ -69,6 +69,8 @@ export class LocationService {
       pagingQuery: query,
       filters: query,
       fieldOptions: { string: ['name', 'city', 'country'] },
+      baseWhere: { isDeleted: false },
+      select: this.locationSelect,
       orderBy: { createdAt: 'asc' },
     });
 

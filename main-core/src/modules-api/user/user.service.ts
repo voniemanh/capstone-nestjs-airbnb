@@ -58,6 +58,7 @@ export class UserService {
       pagingQuery: query,
       filters: query,
       fieldOptions: { string: ['name', 'email', 'role'] },
+      baseWhere: { isDeleted: false },
       orderBy: { createdAt: 'asc' },
       select: this.userSelect,
     });
